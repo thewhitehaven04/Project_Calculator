@@ -37,7 +37,7 @@ test("Multiplication works with negatives", () => {
 });
 
 test("Multiplication works with negatives if represented as a string", () => {
-  expect(operate(8, "-12", "*")).toEqual(-196);
+  expect(operate(8, "-12", "*")).toEqual(-96);
 });
 
 test("Multiplication returns zero when one of the operands is equal to zero", () => {
@@ -73,13 +73,13 @@ test("Division works with strings", () => {
 });
 
 test("Division throws an error when attempting to divide by zero", () => {
-  expect(operate(12, 0, "/")).toThrowError("to zero");
+  expect(() => operate(12, 0, "/")).toThrow(RangeError);
 });
 
 test("Division throws an error when both operands equal to zero", () => {
-  expect(operate(0, 0, "/")).toThrowError("zero");
+  expect(() => operate(0, 0, "/")).toThrow(RangeError);
 });
 
 test("operate throws an error when attempting to use an unsupported operator", () => {
-  expect(operate(5, 1, "kek")).toThrowError("This operator is not supported");
+    expect(() => operate(5, 1, "kek")).toThrow("This operation is not supported");
 });

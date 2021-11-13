@@ -14,7 +14,12 @@ function divide(x, y) {
   x = Number.parseFloat(x);
   y = Number.parseFloat(y);
   if (y !== 0) {
-    return x / y;
+    if (x != 0) return x / y;
+    else {
+      throw new RangeError(
+        "Both operands must not be equal to zero at the same time"
+      );
+    }
   } else {
     throw new RangeError("The divisor must not be equal to zero!");
   }
@@ -36,7 +41,7 @@ function operate(x, y, op) {
     case "/":
       return divide(x, y);
     default:
-      throw RangeError("This operation is not supported");
+      throw new RangeError("This operation is not supported");
   }
 }
 
