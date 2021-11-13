@@ -36,6 +36,10 @@ test("Multiplication works with negatives", () => {
   expect(operate(8, -3, "*")).toEqual(-24);
 });
 
+test("Multiplication works with negatives if represented as a string", () => {
+  expect(operate(8, "-12", "*")).toEqual(-196);
+});
+
 test("Multiplication returns zero when one of the operands is equal to zero", () => {
   expect(operate(2, 0, "*")).toEqual(0);
 });
