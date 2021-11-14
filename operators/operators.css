@@ -1,0 +1,7 @@
+.operators {
+  grid-area: ops;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: inherit;
+  width: 120px;
+}

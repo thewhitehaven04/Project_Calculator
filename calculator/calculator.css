@@ -1,0 +1,11 @@
+.calculator {
+  display: grid;
+  grid-template-areas:
+    "scr scr scr scr"
+    "gen gen par par"
+    "dig dig dig ops"
+    "dig dig dig ops"
+    "dig dig dig ops"
+    "dig dig dig ops";
+  gap: 16px;
+}

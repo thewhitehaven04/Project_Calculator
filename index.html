@@ -4,42 +4,104 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link href="./layout/layout.css" rel="stylesheet" />
     <link href="./calculator/calculator.css" rel="stylesheet" />
-    <link href="./calculator/__screen/calculator__screen.css" rel="stylesheet"/>
+    <link href="./generic-controls/generic-controls.css" rel="stylesheet" />
+    <link
+      href="./generic-controls/__button/generic-controls__button.css"
+      rel="stylesheet"
+    />
+    <link href="./math-controls/math-controls.css" rel="stylesheet" />
+    <link
+      href="./math-controls/__button/math-controls__button.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="operators/operators.css" />
+    <link rel="stylesheet" href="operators/__button/operators__button.css" />
+    <link rel="stylesheet" href="parentheses/parentheses.css" />
+    <link
+      rel="stylesheet"
+      href="parentheses/__button/parentheses__button.css"
+    />
+    <link
+      rel="stylesheet"
+      href="parentheses/__button/_backspace/__button_backspace.css"
+    />
+    <link rel="stylesheet" href="screen-panel/screen-panel.css" />
+    <link
+      rel="stylesheet"
+      href="screen-panel/__input/screen-panel__input.css"
+    />
     <title>A cookie-cutter calculator</title>
   </head>
+
   <body>
     <main class="layout">
       <div class="calculator">
-        <div class="calculator__screen-panel">
-          <input class="calculator__input"></input>
+        <div class="screen-panel">
+          <input class="screen-panel__input" type="text" disabled value="" />
         </div>
-        <div class="calculator__controls">
-          <div class="calculator__generic-controls">
-            <button class="calculator__button-CE">CE</div>
-            <button class="calculator__button-backspace">backspace</div>
-          </div>
-          <div class="calculator__digits">
-            <button class="calculator__button-digit">1</button>
-            <button class="calculator__button-digit">2</button>
-            <button class="calculator__button-digit">3</button>
-            <button class="calculator__button-digit">4</button>
-            <button class="calculator__button-digit">5</button>
-            <button class="calculator__button-digit">6</button>
-            <button class="calculator__button-digit">7</button>
-            <button class="calculator__button-digit">8</button>
-            <button class="calculator__button-digit">9</button>
-            <button class="calculator__button-comma">.</button>
-            <button class="calculator__button-digit">0</button>
-            <button class="calculator__button-equals">=</button>
-          </div>
-          <div class="calculator__operators">
-              <button class="caclaulator__button-operator">/</button>
-              <button class="caclaulator__button-operator">*</button>
-              <button class="caclaulator__button-operator">-</button>
-              <button class="caclaulator__button-operator">+</button>
-          </div>
+        <div class="generic-controls">
+          <button class="generic-controls__button generic-controls__button">
+            CE
+          </button>
+          <button
+            class="generic-controls__button generic-controls__button_backspace"
+          >
+            <span class="material-icons-outlined"> backspace </span>
+          </button>
+        </div>
+        <div class="parentheses">
+          <button class="parentheses__button">(</button>
+          <button class="parentheses__button">)</button>
+        </div>
+        <div class="math-controls">
+          <button class="math-controls__button math-controls__button_digit">
+            1
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            2
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            3
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            4
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            5
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            6
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            7
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            8
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            9
+          </button>
+          <button class="math-controls__button math-controls__button_comma">
+            .
+          </button>
+          <button class="math-controls__button math-controls__button_digit">
+            0
+          </button>
+          <button class="math-controls__button math-controls__button_equals">
+            =
+          </button>
+        </div>
+        <div class="operators">
+          <button class="operators__button">/</button>
+          <button class="operators__button">*</button>
+          <button class="operators__button">-</button>
+          <button class="operators__button">+</button>
         </div>
       </div>
     </main>

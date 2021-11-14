@@ -1,0 +1,5 @@
+.screen-panel {
+  grid-area: scr;
+  padding-bottom: 20px;
+  width: 100%;
+}
