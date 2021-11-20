@@ -37,8 +37,8 @@ html {
 }
 
 .generic-controls__button {
-    font-size: 16pt;
-    width: 120px;
+  font-size: 16pt;
+  width: 120px;
 }
 
 .generic-controls__button_backspace {
@@ -71,16 +71,16 @@ html {
 }
 
 .math-controls {
-    grid-area: dig;
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(3, 1fr);
+  grid-area: dig;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
-    gap: inherit;
+  gap: inherit;
 }
 
 .math-controls__button {
-    font-size: 16pt;
+  font-size: 16pt;
 }
 
 .operators {
@@ -92,5 +92,9 @@ html {
 }
 
 .operators__button {
-    font-size: 16pt;
+  font-size: 16pt;
+}
+
+.error-message-pane {
+  padding: 20px auto;
 }

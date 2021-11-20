@@ -14,75 +14,117 @@ const backspace = document.querySelector(".generic-controls__button_backspace");
 const ceButton = document.querySelector("#CE");
 
 const mathControls = document.querySelector(".math-controls");
-/** The 'state' object is responsible for keeping track of the calculator's state
- */
+/** The 'state' object is responsible for keeping track of the calculator's state */
 let state = {
   firstOperand: "",
   secondOperand: "",
   op: null,
+
   /** The function assign the result of an operation to the first operand and nullifies
    * both the second operand and the next operation for them to be defined
    * according to user input
-   * @param {String} operator - operation to be performed.
-   */
+   * @param {String} operator - operation to be performed.*/
   performOp: function (operator) {
-    if (this.secondOperand & this.op) {
-      this.firstOperand = operate(
-        this.firstOperand,
-        this.secondOperand,
-        this.op
-      );
-      this.secondOperand = null;
+    if (!!this.secondOperand & !!this.op) {
+      try {
+        this.firstOperand = operate(
+          this.firstOperand,
+          this.secondOperand,
+          this.op
+        );
+      } catch (e) {
+        if (e instanceof RangeError) displayDivisionByZeroErrorMessage();
+      }
+      this.secondOperand = "";
     }
     this.op = operator;
   },
   /** The function updates one of the operands depending on whether or not the operation
    * has been previously specified by user input. If the operator has been specified, then the second opperand is appended to.
-   * Otherwise, the first operand is.
-   */
+   * Otherwise, the first operand is.*/
   appendOperand: function (value) {
-    if (!this.op) {
-      this.firstOperand = this.firstOperand + value;
+    const regExp = new RegExp("^(\\d+)\\.(\\d*)$");
+
+    if (value === ".") {
+      if (!this.op) {
+        if (!this.firstOperand.match(regExp)) {
+          this.firstOperand = this.firstOperand + value;
+        }
+      } else {
+        if (!this.secondOperand.match(regExp)) {
+          this.secondOperand = this.secondOperand + value;
+        }
+      }
     } else {
-      this.secondOperand = this.secondOperand + value;
+      if (!this.op) {
+        this.firstOperand = this.firstOperand + value;
+      } else {
+        this.secondOperand = this.secondOperand + value;
+      }
+    }
+  },
+  /** Removes the last digit appended to either the first or the second operand. */
+  removeOperand: function () {
+    if (!this.secondOperand) {
+      this.secondOperand = this.secondOperand.slice(
+        0,
+        this.secondOperand.length - 1
+      );
+    } else {
+      this.firstOperand = this.firstOperand.slice(
+        0,
+        this.firstOperand.length - 1
+      );
     }
   },
   /** The function performs the operation specified earlier and
-   * assigns the result to the first operand.
-   */
+   * assigns the result to the first operand.*/
   performEqual: function () {
-    if (this.secondOperand & !(this.op === null)) {
-      this.firstOperand = operate(
-        this.firstOperand,
-        this.secondOperand,
-        this.op
-      );
+    if (Boolean(this.secondOperand) & !!this.op) {
+      try {
+        this.firstOperand = operate(
+          this.firstOperand,
+          this.secondOperand,
+          this.op
+        );
+      } catch (e) {
+        if (e instanceof RangeError) displayDivisionByZeroErrorMessage();
+      }
       this.secondOperand = "";
       this.op = null;
     }
   },
-  toStringRepresentation: function () {
-    if (this.op) {
-      return `${this.firstOperand}${this.op}${this.secondOperand}`;
-    } else {
-      return `${this.firstOperand}`;
-    }
-  },
+  /** The function nullifies the calculator's state */
   cleanState: function () {
     this.firstOperand = "";
     this.secondOperand = "";
     this.op = null;
+  },
+  /** Returns the string representation of calculator state.*/
+  toStringRepresentation: function () {
+    const formattedNumber = (number) => {
+      return number.toLocaleString("en-EN", { maximumFractionDigits: 3 });
+    };
+
+    let strFirstOperand = formattedNumber(this.firstOperand);
+
+    if (!!this.op) {
+      let strSecondOperand = formattedNumber(this.secondOperand);
+      return `${strFirstOperand}${this.op}${strSecondOperand}`;
+    } else {
+      return `${strFirstOperand}`;
+    }
   },
 };
 
 operators.forEach((operator) => {
   /** This listener implements math operator features: when a user clicks on one of the buttons,
    * the calculator state is updated. If both the operator and the second operand have been previously specified,
-   * then the operation result is assigned to the first operand.
-   */
+   * then the operation result is assigned to the first operand.*/
   operator.addEventListener("click", (event) => {
     const operator = event.target.dataset.operation;
     state.performOp(operator);
+    cleanDivisionByZeroErrorMessage();
   });
 
   operator.addEventListener(
@@ -98,8 +140,7 @@ buttonEquals.addEventListener("click", (event) => {
 
 mathControls.addEventListener("click", (event) => {
   /** This listener implements calculator digits feature.
-   * A digit is added to the display each time a user clicks on it.
-   */
+   * A digit is added to the display each time a user clicks on it.*/
   if (event.target.matches(".math-controls__button_type_digit")) {
     const symbolToAdd = event.target.innerText;
     state.appendOperand(symbolToAdd);
@@ -110,30 +151,46 @@ mathControls.addEventListener("click", (event) => {
 comma.addEventListener("click", (event) => {
   /**  This listener implements the comma feature. 
     If the input field is empty, the comma is not added to the text value
-    If the input field already contains a comma in the current operand, the comma is not added as well.
-    */
-  let inputTextContent = screenPanelInput.value;
-  const regExp = new RegExp("([*-+/])?(\\d+)\\.(\\d*)$");
-  if (!inputTextContent.match(regExp) & inputTextContent) {
-    console.log(`Text content: ${inputTextContent}`);
-    console.dir(inputTextContent.match(regExp));
-    screenPanelInput.value = inputTextContent + ".";
-  }
+    If the input field already contains a comma in the current operand, the comma is not added as well.*/
+  state.appendOperand(".");
+  screenPanelInput.value = state.toStringRepresentation();
 });
 
+/** This listener implements the backspace button feature.*/
 backspace.addEventListener("click", (event) => {
-  // This function implements the backspace button feature.
-  let currentInputText = screenPanelInput.value;
-  console.log(currentInputText);
-  if (currentInputText) {
-    screenPanelInput.value = currentInputText.slice(
-      0,
-      currentInputText.length - 1
-    );
-  }
+  state.removeOperand();
+  screenPanelInput.value = state.toStringRepresentation();
 });
 
 ceButton.addEventListener("click", (event) => {
   state.cleanState();
   screenPanelInput.value = state.toStringRepresentation();
 });
+
+/** Displays an error message upon attempting to divide by zero. */
+function displayDivisionByZeroErrorMessage() {
+  const warningMessageSpan = document.createElement("span");
+  // Added a bit of randomness to warning messages for the sake of fun
+  const warningMessageArr = [
+    "Did you really think that you'd be allowed to do that? hehe",
+    "Seriously?",
+    "The divisor must not be equal to zero.",
+    "Ain't gonna let you crash this app!",
+  ];
+  warningMessageSpan.textContent =
+    warningMessageArr[Math.floor(warningMessageArr.length * Math.random())];
+
+  warningMessageSpan.classList.add("error-message-pane__text");
+
+  const errorMessageNode = document.querySelector(".error-message-pane");
+  errorMessageNode.appendChild(warningMessageSpan);
+}
+
+/** Removes the division by zero error message */
+function cleanDivisionByZeroErrorMessage() {
+  const warningMessage = document.querySelector(".error-message-pane__text");
+  if (!!warningMessage) {
+    const warningMessageDiv = document.querySelector(".error-message-pane");
+    warningMessageDiv.removeChild(warningMessage);
+  }
+}
