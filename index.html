@@ -19,7 +19,10 @@
           <input class="screen-panel__input" type="text" disabled value="" />
         </div>
         <div class="generic-controls">
-          <button class="generic-controls__button generic-controls__button" id="CE">
+          <button
+            class="generic-controls__button generic-controls__button"
+            id="CE"
+          >
             CE
           </button>
           <button
@@ -28,9 +31,23 @@
             <span class="material-icons-outlined"> backspace </span>
           </button>
         </div>
-        <div class="parentheses">
-          <button class="parentheses__button">(</button>
-          <button class="parentheses__button">)</button>
+        <div class="advanced-operations">
+          <button
+            class="
+              advanced-operations__operation
+              advanced-operations__operation_inverse
+            "
+          >
+            1/x
+          </button>
+          <button
+            class="
+              advanced-operations__operation
+              advanced-operations__operation_power
+            "
+          >
+            x^y
+          </button>
         </div>
         <div class="math-controls">
           <button
@@ -121,9 +138,7 @@
           </button>
         </div>
       </div>
-      <div class="error-message-pane">
-          
-      </div>
+      <div class="error-message-pane"></div>
     </main>
   </body>
 </html>
