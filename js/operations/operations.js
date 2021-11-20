@@ -1,3 +1,5 @@
+export { operate };
+
 function add(x, y) {
   return Number.parseFloat(x) + Number.parseFloat(y);
 }
@@ -44,5 +46,3 @@ function operate(x, y, op) {
       throw new RangeError("This operation is not supported");
   }
 }
-
-module.exports = operate;

@@ -3,56 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script type="module" src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
     <link
+      rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
     />
-    <link href="./layout/layout.css" rel="stylesheet" />
-    <link href="./calculator/calculator.css" rel="stylesheet" />
-    <link href="./generic-controls/generic-controls.css" rel="stylesheet" />
-    <link
-      href="./generic-controls/__button/generic-controls__button.css"
-      rel="stylesheet"
-    />
-    <link href="./math-controls/math-controls.css" rel="stylesheet" />
-    <link
-      href="./math-controls/__button/math-controls__button.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="operators/operators.css" />
-    <link rel="stylesheet" href="operators/__button/operators__button.css" />
-    <link rel="stylesheet" href="parentheses/parentheses.css" />
-    <link
-      rel="stylesheet"
-      href="parentheses/__button/parentheses__button.css"
-    />
-    <link
-      rel="stylesheet"
-      href="generic-controls/__button/_backspace/__button_backspace.css"
-    />
-    <link rel="stylesheet" href="screen-panel/screen-panel.css" />
-    <link
-      rel="stylesheet"
-      href="screen-panel/__input/screen-panel__input.css"
-    />
-    <script
-      type="module"
-      src="./math-controls/__button/math-controls__button.js"
-      defer
-    ></script>
-    <script
-      type="module"
-      src="./generic-controls/__button/_backspace/__button_backspace.js"
-      defer
-    ></script>
-    <script
-      type="module"
-      src="math-controls/__button/_comma/math-controls__button_comma.js"
-      defer
-    ></script>
     <title>A cookie-cutter calculator</title>
   </head>
-
   <body>
     <main class="layout">
       <div class="calculator">
@@ -60,7 +19,7 @@
           <input class="screen-panel__input" type="text" disabled value="" />
         </div>
         <div class="generic-controls">
-          <button class="generic-controls__button generic-controls__button">
+          <button class="generic-controls__button generic-controls__button" id="CE">
             CE
           </button>
           <button
@@ -74,48 +33,92 @@
           <button class="parentheses__button">)</button>
         </div>
         <div class="math-controls">
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             1
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             2
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             3
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             4
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             5
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             6
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             7
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             8
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             9
           </button>
-          <button class="math-controls__button math-controls__button_comma">
+          <button
+            class="math-controls__button math-controls__button_type_comma"
+          >
             .
           </button>
-          <button class="math-controls__button math-controls__button_digit">
+          <button
+            class="math-controls__button math-controls__button_type_digit"
+          >
             0
           </button>
-          <button class="math-controls__button math-controls__button_equals">
+          <button
+            class="math-controls__button math-controls__button_type_equals"
+          >
             =
           </button>
         </div>
         <div class="operators">
-          <button class="operators__button">/</button>
-          <button class="operators__button">*</button>
-          <button class="operators__button">-</button>
-          <button class="operators__button">+</button>
+          <button
+            class="operators__button operators__button_type_divide"
+            data-operation="/"
+          >
+            /
+          </button>
+          <button
+            class="operators__button operators__button_type_multiply"
+            data-operation="*"
+          >
+            *
+          </button>
+          <button
+            class="operators__button operators__button_type_minus"
+            data-operation="-"
+          >
+            -
+          </button>
+          <button
+            class="operators__button operators__button_type_plus"
+            data-operation="+"
+          >
+            +
+          </button>
         </div>
       </div>
     </main>
