@@ -27,13 +27,13 @@ let state = {
    * according to user input
    * @param {String} operator - operation to be performed.*/
   performOp: function (operator) {
-    if (!!this.secondOperand & !!this.op) {
+    if (!!this.firstOperand & !!this.secondOperand & !!this.op) {
       try {
         this.firstOperand = operate(
           this.firstOperand,
           this.secondOperand,
           this.op
-        );
+        ).toString();
       } catch (e) {
         if (e instanceof RangeError) displayDivisionByZeroErrorMessage();
       }
@@ -45,16 +45,17 @@ let state = {
    * has been previously specified by user input. If the operator has been specified, then the second opperand is appended to.
    * Otherwise, the first operand is.*/
   appendOperand: function (value) {
-    const regExp = new RegExp("^(\\d+)\\.(\\d*)$");
+    const hasCommaRegExp = new RegExp("^(\\d+)\\.(\\d*)$");
+    // const leadingZeroesRegExp = new RegExp("^0(\\d+)$");
 
     if (value === ".") {
       // Make sure that only one comma is allowed in an operand
       if (!this.op) {
-        if (!this.firstOperand.match(regExp)) {
+        if (!this.firstOperand.match(hasCommaRegExp)) {
           this.firstOperand = this.firstOperand + value;
         }
       } else {
-        if (!this.secondOperand.match(regExp)) {
+        if (!this.secondOperand.match(hasCommaRegExp)) {
           this.secondOperand = this.secondOperand + value;
         }
       }
@@ -62,42 +63,36 @@ let state = {
       if (!this.op) {
         this.firstOperand = this.firstOperand + value;
         // Remove leading zeroes
-        if (this.firstOperand.startsWith("0")) {
-          this.firstOperand = this.firstOperand.slice(1);
-        }
+        // if (this.firstOperand.match(leadingZeroesRegExp)) {
+        //   this.firstOperand = this.firstOperand.slice(1);
+        // }
       } else {
         this.secondOperand = this.secondOperand + value;
         // Remove leading zeroes
-        if (this.secondOperand.startsWith("0")) {
-          this.secondOperand = this.secondOperand.slice(1);
-        }
+        // if (this.secondOperand.match(leadingZeroesRegExp)) {
+        //   this.secondOperand = this.secondOperand.slice(1);
+        // }
       }
     }
   },
   /** Removes the last digit appended to either the first or the second operand. */
   removeOperand: function () {
     if (!!this.secondOperand) {
-      this.secondOperand = this.secondOperand.slice(
-        0,
-        this.secondOperand.length - 1
-      );
+      this.secondOperand = this.secondOperand.slice(0, -1);
     } else {
-      this.firstOperand = this.firstOperand.slice(
-        0,
-        this.firstOperand.length - 1
-      );
+      this.firstOperand = this.firstOperand.slice(0, -1);
     }
   },
   /** The function performs the operation specified earlier and
    * assigns the result to the first operand.*/
   performEqual: function () {
-    if (Boolean(this.secondOperand) & !!this.op) {
+    if (!!this.firstOperand && !!this.secondOperand & !!this.op) {
       try {
         this.firstOperand = operate(
           this.firstOperand,
           this.secondOperand,
           this.op
-        );
+        ).toString();
       } catch (e) {
         if (e instanceof RangeError) displayDivisionByZeroErrorMessage();
       }
@@ -114,7 +109,7 @@ let state = {
   /** Returns the string representation of calculator state.*/
   toStringRepresentation: function () {
     const formattedNumber = (number) => {
-      return number.toLocaleString("en-EN", { maximumFractionDigits: 3 });
+      return number.toLocaleString("ru", { maximumFractionDigits: 3 });
     };
 
     let strFirstOperand = formattedNumber(this.firstOperand);
@@ -136,9 +131,8 @@ operators.forEach((operator) => {
     const operator = event.target.dataset.operation;
     state.performOp(operator);
     cleanDivisionByZeroErrorMessage();
+    screenPanelInput.value = state.toStringRepresentation();
   });
-
-  operator.addEventListener("click", (event) => state.toStringRepresentation());
 });
 
 buttonEquals.addEventListener("click", (event) => {
@@ -207,9 +201,20 @@ function cleanDivisionByZeroErrorMessage() {
 window.addEventListener("keydown", (event) => {
   const operatorKeys = ["/", "+", "-", "*"];
   const equalKeys = ["=", "Enter"];
-  const buttonDigitKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+  const buttonDigitKeys = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    ".",
+  ];
   const backspace = "backspace";
-  const comma = ".";
 
   if (buttonDigitKeys.includes(event.key)) {
     state.appendOperand(event.key);
