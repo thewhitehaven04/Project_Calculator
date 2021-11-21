@@ -48,6 +48,7 @@ let state = {
     const regExp = new RegExp("^(\\d+)\\.(\\d*)$");
 
     if (value === ".") {
+      // Make sure that only one comma is allowed in an operand
       if (!this.op) {
         if (!this.firstOperand.match(regExp)) {
           this.firstOperand = this.firstOperand + value;
@@ -60,8 +61,16 @@ let state = {
     } else {
       if (!this.op) {
         this.firstOperand = this.firstOperand + value;
+        // Remove leading zeroes
+        if (this.firstOperand.startsWith("0")) {
+          this.firstOperand = this.firstOperand.slice(1);
+        }
       } else {
         this.secondOperand = this.secondOperand + value;
+        // Remove leading zeroes
+        if (this.secondOperand.startsWith("0")) {
+          this.secondOperand = this.secondOperand.slice(1);
+        }
       }
     }
   },
@@ -193,3 +202,26 @@ function cleanDivisionByZeroErrorMessage() {
     warningMessageDiv.removeChild(warningMessage);
   }
 }
+
+/** This listener implements keyboard support. */
+window.addEventListener("keydown", (event) => {
+  const operatorKeys = ["/", "+", "-", "*"];
+  const equalKeys = ["=", "Enter"];
+  const buttonDigitKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+  const backspace = "backspace";
+  const comma = ".";
+
+  if (buttonDigitKeys.includes(event.key)) {
+    state.appendOperand(event.key);
+    cleanDivisionByZeroErrorMessage();
+  } else if (equalKeys.includes(event.key)) {
+    state.performEqual();
+    cleanDivisionByZeroErrorMessage();
+  } else if (operatorKeys.includes(event.key)) {
+    state.performOp(event.key);
+  } else if (event.key === backspace) {
+    state.removeOperand();
+  } else return;
+
+  screenPanelInput.value = state.toStringRepresentation();
+});
