@@ -10,7 +10,9 @@ const buttonEquals = document.querySelector(
 );
 
 const comma = document.querySelector(".math-controls__button_type_comma");
-const backspace = document.querySelector(".generic-controls__button_backspace");
+const backspace = document.querySelector(
+  ".generic-controls__button_type_backspace"
+);
 const ceButton = document.querySelector("#CE");
 
 const mathControls = document.querySelector(".math-controls");
@@ -65,7 +67,7 @@ let state = {
   },
   /** Removes the last digit appended to either the first or the second operand. */
   removeOperand: function () {
-    if (!this.secondOperand) {
+    if (!!this.secondOperand) {
       this.secondOperand = this.secondOperand.slice(
         0,
         this.secondOperand.length - 1
