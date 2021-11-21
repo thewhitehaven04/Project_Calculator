@@ -46,7 +46,7 @@ let state = {
    * Otherwise, the first operand is.*/
   appendOperand: function (value) {
     const hasCommaRegExp = new RegExp("^(\\d+)\\.(\\d*)$");
-    // const leadingZeroesRegExp = new RegExp("^0(\\d+)$");
+    const leadingZeroesRegExp = new RegExp("^0(\\d+)$");
 
     if (value === ".") {
       // Make sure that only one comma is allowed in an operand
@@ -63,15 +63,15 @@ let state = {
       if (!this.op) {
         this.firstOperand = this.firstOperand + value;
         // Remove leading zeroes
-        // if (this.firstOperand.match(leadingZeroesRegExp)) {
-        //   this.firstOperand = this.firstOperand.slice(1);
-        // }
+        if (this.firstOperand.match(leadingZeroesRegExp)) {
+          this.firstOperand = this.firstOperand.slice(1);
+        }
       } else {
         this.secondOperand = this.secondOperand + value;
         // Remove leading zeroes
-        // if (this.secondOperand.match(leadingZeroesRegExp)) {
-        //   this.secondOperand = this.secondOperand.slice(1);
-        // }
+        if (this.secondOperand.match(leadingZeroesRegExp)) {
+          this.secondOperand = this.secondOperand.slice(1);
+        }
       }
     }
   },
@@ -221,7 +221,6 @@ window.addEventListener("keydown", (event) => {
     cleanDivisionByZeroErrorMessage();
   } else if (equalKeys.includes(event.key)) {
     state.performEqual();
-    cleanDivisionByZeroErrorMessage();
   } else if (operatorKeys.includes(event.key)) {
     state.performOp(event.key);
   } else if (event.key === backspace) {
