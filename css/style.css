@@ -61,7 +61,7 @@ html {
   font-size: 30pt;
 
   --controls-color: rgb(217, 239, 255);
-  border: 1px solid var(--controls-color);
+  border: 2px solid var(--controls-color);
   border-radius: 6px;
   background-color: var(--controls-color); 
 }
@@ -80,7 +80,7 @@ html {
 
 .advanced-operations__operation {
   --adv-operations-color: rgb(217, 239, 255);
-  border: 1px solid var(--adv-operations-color);
+  border: 2px solid var(--adv-operations-color);
   border-radius: 6px;
   background-color: rgb(217, 239, 255);
   
@@ -114,9 +114,10 @@ html {
 }
 
 .math-controls__button {
-  border: 1px;
+  --math-controls-color: rgb(235, 247, 255);
+  border: 2px solid var(--math-controls-color);
   border-radius: 6px;
-  background-color: rgb(235, 247, 255);
+  background-color: var(--math-controls-color);
   
   font-size: 24pt;
   font-family: inherit;
@@ -132,7 +133,7 @@ html {
 
 .operators__button {
   --operator-color: rgb(217, 239, 255);
-  border: 1px solid var(--operator-color); 
+  border: 2px solid var(--operator-color); 
   background-color: var(--operator-color);
   border-radius: 6px;
   font-size: 24pt;
@@ -144,7 +145,7 @@ html {
 .operators__button:hover, 
 .advanced-operations__operation:hover, 
 .generic-controls__button:hover {
-  border: 1px solid rgb(52, 150, 226);
+  border: 2px solid rgb(52, 150, 226);
 }
 
 .error-message-pane {

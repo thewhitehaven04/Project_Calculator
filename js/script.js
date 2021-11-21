@@ -129,10 +129,7 @@ operators.forEach((operator) => {
     cleanDivisionByZeroErrorMessage();
   });
 
-  operator.addEventListener(
-    "click",
-    (event) => (screenPanelInput.value = state.firstOperand + state.op)
-  );
+  operator.addEventListener("click", (event) => state.toStringRepresentation());
 });
 
 buttonEquals.addEventListener("click", (event) => {
