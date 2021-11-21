@@ -19,7 +19,13 @@ html {
   position: fixed;
   top: 30%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform-box: border-box;
+  transform: translate(-50%, -30%); 
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 20px;
 }
 
 .calculator {
@@ -37,6 +43,8 @@ html {
   box-shadow: 0px 0px 25px 4px rgb(52, 150, 226);
   border-radius: 8px;
   padding: 20px;
+  width: 500px;
+  height: 550px;
 }
 
 .generic-controls {
@@ -50,7 +58,7 @@ html {
 
 .generic-controls__button {
   font-family: inherit;
-  font-size: 16pt;
+  font-size: 30pt;
 
   --controls-color: rgb(217, 239, 255);
   border: 1px solid var(--controls-color);
@@ -71,15 +79,13 @@ html {
 }
 
 .advanced-operations__operation {
-  width: 80px;
-
   --adv-operations-color: rgb(217, 239, 255);
   border: 1px solid var(--adv-operations-color);
   border-radius: 6px;
   background-color: rgb(217, 239, 255);
   
   font-family: inherit;
-  font-size: 18pt;
+  font-size: 24pt;
 }
 
 .screen-panel {
@@ -92,8 +98,10 @@ html {
   width: 100%;
   height: 1.8em;
   border-width: 0px 0px 2px 0px;
-  font-size: 20pt;
+
+  font-size: 30pt;
   font-family: inherit;
+  text-align: right;
 }
 
 .math-controls {
@@ -106,12 +114,11 @@ html {
 }
 
 .math-controls__button {
-  width: 80px; 
   border: 1px;
   border-radius: 6px;
   background-color: rgb(235, 247, 255);
   
-  font-size: 18pt;
+  font-size: 24pt;
   font-family: inherit;
 }
 
@@ -120,6 +127,7 @@ html {
   display: flex;
   flex-flow: column nowrap;
   gap: inherit;
+  justify-content: center;
 }
 
 .operators__button {
@@ -127,9 +135,9 @@ html {
   border: 1px solid var(--operator-color); 
   background-color: var(--operator-color);
   border-radius: 6px;
-  width: 80px;
-  font-size: 18pt;
+  font-size: 24pt;
   font-family: inherit;
+  flex: 1 1 25%;
 }
 
 .math-controls__button:hover, 
@@ -141,4 +149,7 @@ html {
 
 .error-message-pane {
   padding: 20px auto;
+  text-align: center;
+  height: 50px;
+  font-size: 18pt;
 }
