@@ -109,17 +109,18 @@ let state = {
   /** Returns the string representation of calculator state.*/
   toStringRepresentation: function () {
     const formattedNumber = (number) => {
-      return number.toLocaleString("ru", { maximumFractionDigits: 3 });
+      if (!isNaN(Number.parseFloat(number)))
+        return Number.parseFloat(number).toLocaleString("en-EN", {
+          maximumFractionDigits: 3,
+        });
+      return "";
     };
 
-    let strFirstOperand = formattedNumber(this.firstOperand);
+    console.dir(state);
 
-    if (!!this.op) {
-      let strSecondOperand = formattedNumber(this.secondOperand);
-      return `${strFirstOperand}${this.op}${strSecondOperand}`;
-    } else {
-      return `${strFirstOperand}`;
-    }
+    let strFirstOperand = formattedNumber(this.firstOperand);
+    let strSecondOperand = formattedNumber(this.secondOperand);
+    return `${strFirstOperand}${this.op ?? ""}${strSecondOperand}`;
   },
 };
 
