@@ -116,8 +116,6 @@ let state = {
       return "";
     };
 
-    console.dir(state);
-
     let strFirstOperand = formattedNumber(this.firstOperand);
     let strSecondOperand = formattedNumber(this.secondOperand);
     return `${strFirstOperand}${this.op ?? ""}${strSecondOperand}`;
